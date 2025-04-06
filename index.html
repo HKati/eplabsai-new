@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Paradox Labs</title>
   <style>
     html, body {
@@ -9,7 +10,8 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background-color: black;
       color: white;
     }
 
@@ -17,38 +19,40 @@
       position: fixed;
       top: 0;
       left: 0;
-      min-width: 100%;
-      min-height: 100%;
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
       z-index: -1;
     }
 
     .overlay {
-      position: relative;
-      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(2px);
+      z-index: 1;
+      backdrop-filter: blur(1px);
     }
 
     h1 {
       font-size: 3em;
-      letter-spacing: 2px;
       margin-bottom: 30px;
       text-shadow: 0 0 10px black;
     }
 
     .enter-btn {
+      padding: 12px 24px;
+      font-size: 1rem;
       background: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       color: white;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
       border-radius: 8px;
+      cursor: pointer;
       transition: 0.3s ease;
     }
 
@@ -56,29 +60,45 @@
       background: white;
       color: black;
     }
+
+    #panel {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: center;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
+
   <video autoplay muted loop playsinline>
-    <source src="main.mp4" type="video/mp4">
-    A böngésződ nem támogatja a videó lejátszását.
+    <source src="main.mp4" type="video/mp4" />
+    A böngésződ nem támogatja a videólejátszást.
   </video>
 
   <div class="overlay">
     <h1>E–PARADOX LABS</h1>
-    <button class="enter-btn" onclick="window.location.href='#panel'">Lépj be</button>
+    <button class="enter-btn">Lépj be</button>
   </div>
 
-  <!-- Itt nyílik majd a panel -->
-  <div id="panel" style="display: none;">
-    <!-- A te bemutatkozó tartalmad jöhet ide -->
+  <div id="panel">
+    <h2>Rólunk</h2>
+    <p>Ez itt az E-Paradox Labs bemutatkozó ablaka, amit most már te is megnyitottál.</p>
+    <p>eplabsai@eplabsai.com</p>
   </div>
 
   <script>
-    // Ez csak példa: megmutatja a panelt, ha rákattintanak a gombra
     document.querySelector('.enter-btn').addEventListener('click', () => {
       document.getElementById('panel').style.display = 'block';
     });
   </script>
+
 </body>
 </html>
