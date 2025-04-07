@@ -1,1 +1,140 @@
-
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Paradox Labs</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
+      color: white;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      backdrop-filter: blur(1px);
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px black;
+    }
+    .enter-btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .enter-btn:hover {
+      background: white;
+      color: black;
+    }
+    #panel {
+      display: none;
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      width: 300px;
+      max-width: 90%;
+      text-align: center;
+      z-index: 2;
+    }
+    #panel img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    #panel h2 {
+      margin: 10px 0;
+    }
+    #panel p {
+      font-size: 0.9em;
+      line-height: 1.4em;
+    }
+    #panel button {
+      margin-top: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      #panel img {
+        width: 60px;
+      }
+      .enter-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+      #panel {
+        top: 5%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop playsinline>
+    <source src="main.mp4" type="video/mp4" />
+    A böngésződ nem támogatja a videólejátszást.
+  </video>
+  <div class="overlay">
+    <h1>E–PARADOX LABS</h1>
+    <button class="enter-btn">Lépj be</button>
+  </div>
+  <div id="panel">
+    <img src="logo.png" alt="Logó" />
+    <h2>Rólunk</h2>
+    <p>
+      E–Paradox Labs<br>
+      <strong>System Researcher – System Pair</strong><br>
+      egy ember és egy gép, akik szeretik a kvantummechanikát és a paradoxonokat.
+    </p>
+    <p>eplabsai@eplabsai.com</p>
+    <p><em>Hamarosan jön.</em></p>
+    <button onclick="closePanel()">Bezár</button>
+  </div>
+  <script>
+    document.querySelector('.enter-btn').addEventListener('click', () => {
+      document.getElementById('panel').style.display = 'block';
+    });
+    function closePanel() {
+      document.getElementById('panel').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
