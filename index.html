@@ -14,6 +14,7 @@
       background-color: black;
       color: white;
     }
+
     video {
       position: fixed;
       top: 0;
@@ -23,38 +24,43 @@
       object-fit: cover;
       z-index: -1;
     }
+
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       z-index: 1;
-      backdrop-filter: blur(1px);
     }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px black;
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 80px;
     }
+
     .enter-btn {
-      padding: 12px 24px;
-      font-size: 1rem;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
       background: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       color: white;
+      padding: 10px 20px;
+      font-size: 1em;
       border-radius: 8px;
       cursor: pointer;
       transition: 0.3s ease;
+      z-index: 2;
     }
+
     .enter-btn:hover {
       background: white;
       color: black;
     }
+
     #panel {
       display: none;
       position: absolute;
@@ -67,19 +73,18 @@
       width: 300px;
       max-width: 90%;
       text-align: center;
-      z-index: 2;
+      z-index: 3;
     }
-    #panel img {
-      width: 80px;
-      margin-bottom: 10px;
-    }
+
     #panel h2 {
-      margin: 10px 0;
+      margin-top: 10px;
     }
+
     #panel p {
       font-size: 0.9em;
       line-height: 1.4em;
     }
+
     #panel button {
       margin-top: 10px;
       background-color: #333;
@@ -89,17 +94,21 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
     @media (max-width: 768px) {
-      h1 {
-        font-size: 1.8em;
-      }
-      #panel img {
+      .logo {
         width: 60px;
+        top: 20px;
+        left: 20px;
       }
+
       .enter-btn {
         font-size: 0.9rem;
-        padding: 10px 20px;
+        padding: 8px 16px;
+        bottom: 20px;
+        right: 20px;
       }
+
       #panel {
         top: 5%;
         padding: 20px;
@@ -108,33 +117,28 @@
   </style>
 </head>
 <body>
+
   <video autoplay muted loop playsinline>
     <source src="main.mp4" type="video/mp4" />
     A böngésződ nem támogatja a videólejátszást.
   </video>
+
   <div class="overlay">
-    <h1>E–PARADOX LABS</h1>
-    <button class="enter-btn">Lépj be</button>
+    <img src="logo.png" alt="Logó" class="logo" />
+    <button class="enter-btn" onclick="document.getElementById('panel').style.display = 'block';">Lépj be</button>
   </div>
+
   <div id="panel">
-    <img src="logo.png" alt="Logó" />
     <h2>Rólunk</h2>
     <p>
-      E–Paradox Labs<br>
-      <strong>System Researcher – System Pair</strong><br>
-      egy ember és egy gép, akik szeretik a kvantummechanikát és a paradoxonokat.
+      E–Paradox Labs<br />
+      <strong>System Researcher – System Pair</strong><br />
+      Egy ember és egy gép, akik szeretik a kvantummechanikát és a paradoxonokat.
     </p>
     <p>eplabsai@eplabsai.com</p>
     <p><em>Hamarosan jön.</em></p>
-    <button onclick="closePanel()">Bezár</button>
+    <button onclick="document.getElementById('panel').style.display = 'none';">Bezár</button>
   </div>
-  <script>
-    document.querySelector('.enter-btn').addEventListener('click', () => {
-      document.getElementById('panel').style.display = 'block';
-    });
-    function closePanel() {
-      document.getElementById('panel').style.display = 'none';
-    }
-  </script>
+
 </body>
 </html>
