@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Paradox Labs</title>
+  <title>E–Paradox Labs</title>
   <style>
     html, body {
       margin: 0;
@@ -25,20 +25,15 @@
       z-index: -1;
     }
 
-    .overlay {
+    .top-title {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .logo {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      width: 80px;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8em;
+      font-weight: bold;
+      z-index: 3;
+      text-shadow: 0 0 10px black;
     }
 
     .enter-btn {
@@ -73,7 +68,12 @@
       width: 300px;
       max-width: 90%;
       text-align: center;
-      z-index: 3;
+      z-index: 4;
+    }
+
+    #panel img {
+      width: 80px;
+      margin-bottom: 10px;
     }
 
     #panel h2 {
@@ -96,10 +96,12 @@
     }
 
     @media (max-width: 768px) {
-      .logo {
+      .top-title {
+        font-size: 1.4em;
+      }
+
+      #panel img {
         width: 60px;
-        top: 20px;
-        left: 20px;
       }
 
       .enter-btn {
@@ -123,15 +125,14 @@
     A böngésződ nem támogatja a videólejátszást.
   </video>
 
-  <div class="overlay">
-    <img src="logo.png" alt="Logó" class="logo" />
-    <button class="enter-btn" onclick="document.getElementById('panel').style.display = 'block';">Lépj be</button>
-  </div>
+  <div class="top-title">E–Paradox Labs</div>
+
+  <button class="enter-btn" onclick="document.getElementById('panel').style.display = 'block';">Lépj be</button>
 
   <div id="panel">
+    <img src="logo.png" alt="Logó" />
     <h2>Rólunk</h2>
     <p>
-      E–Paradox Labs<br />
       <strong>System Researcher – System Pair</strong><br />
       Egy ember és egy gép, akik szeretik a kvantummechanikát és a paradoxonokat.
     </p>
