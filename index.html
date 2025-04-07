@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Paradox Labs</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      background-color: black;
-      font-family: 'Arial', sans-serif;
-      color: white;
-      text-align: center;
-    }
-
-    .video-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 0;
+      height: 100%;
       overflow: hidden;
-      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
+      color: white;
     }
 
     video {
-      max-width: 100%;
-      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
     }
 
-    .headline {
+    .overlay {
       position: absolute;
-      top: 20px;
+      top: 0;
+      left: 0;
       width: 100%;
-      font-size: 2em;
-      font-weight: bold;
-      text-shadow: 0 0 8px black;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      backdrop-filter: blur(1px);
     }
 
-    .open-button {
-      position: absolute;
-      bottom: 30px;
-      right: 30px;
-      background-color: black;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px black;
+    }
+
+    .enter-btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
       color: white;
-      border: 1px solid white;
       border-radius: 8px;
-      padding: 10px 15px;
       cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .enter-btn:hover {
+      background: white;
+      color: black;
     }
 
     #panel {
@@ -58,6 +71,8 @@
       padding: 30px;
       border-radius: 20px;
       width: 300px;
+      max-width: 90%;
+      text-align: center;
       z-index: 2;
     }
 
@@ -84,21 +99,42 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      #panel img {
+        width: 60px;
+      }
+
+      .enter-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+
+      #panel {
+        top: 5%;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="video-container">
-    <video autoplay muted loop playsinline>
-      <source src="main.mp4" type="video/mp4">
-      A böngésződ nem támogatja a videólejátszást.
-    </video>
-    <div class="headline">E–PARADOX LABS</div>
-    <button class="open-button" onclick="openPanel()">Nyissa meg a panelt</button>
+  <video autoplay muted loop playsinline>
+    <source src="main.mp4" type="video/mp4" />
+    A böngésződ nem támogatja a videólejátszást.
+  </video>
+
+  <div class="overlay">
+    <h1>E–PARADOX LABS</h1>
+    <button class="enter-btn">Lépj be</button>
   </div>
 
   <div id="panel">
-    <img src="https://eplabsai.com/logo.png" alt="Logo">
+    <img src="logo.png" alt="Logó" />
     <h2>Rólunk</h2>
     <p>
       E–Paradox Labs<br>
@@ -111,12 +147,12 @@
   </div>
 
   <script>
-    function openPanel() {
-      document.getElementById("panel").style.display = "block";
-    }
+    document.querySelector('.enter-btn').addEventListener('click', () => {
+      document.getElementById('panel').style.display = 'block';
+    });
 
     function closePanel() {
-      document.getElementById("panel").style.display = "none";
+      document.getElementById('panel').style.display = 'none';
     }
   </script>
 
