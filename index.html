@@ -1,19 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Security and responsiveness meta tags -->
+  <!-- Content-Security-Policy & mobilbarát beállítások -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-Paradox Labs</title>
   <meta name="description" content="E-Paradox Labs - One human and one machine who love quantum mechanics and paradoxes.">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Preload the video -->
+  <!-- Előtöltés a videóhoz -->
   <link rel="preload" href="video.mp4" as="video">
-  <!-- Structured Data for SEO -->
+
+  <!-- Structured Data SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,32 +22,23 @@
     "description": "One human and one machine who love quantum mechanics and paradoxes."
   }
   </script>
+
   <style>
-    /* CSS Variables for modal colors */
-    :root {
-      --modal-bg: #fff;
-      --modal-text: #000;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --modal-bg: #222;
-        --modal-text: #fff;
-      }
-    }
-    
-    /* Reset and basic styles */
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    /* Alap háttér: fekete, alap szöveg: fehér */
     body {
-      background-color: #000; /* Global black background */
-      font-family: Arial, sans-serif;
+      background-color: #000;
       color: #fff;
+      font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
-    /* Fullscreen video background */
+
+    /* Teljes képernyős MP4 háttér */
     .video-container {
       position: relative;
       width: 100%;
@@ -61,7 +50,8 @@
       height: 100%;
       object-fit: cover;
     }
-    /* Floating button (bottom-right) */
+
+    /* Infó gomb a jobb alsó sarokban */
     .open-modal-btn {
       position: absolute;
       bottom: 20px;
@@ -74,24 +64,26 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    /* Modal overlay */
+
+    /* Modális háttér (fekete, 0.7 átlátszósággal) */
     .modal {
-      display: none; /* Initially hidden */
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
       z-index: 9999;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.7); /* Semi-transparent overlay */
+      background: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
-    /* Modal content container */
+
+    /* Modál tartalom: fekete alap, fehér szöveg */
     .modal-content {
-      background-color: var(--modal-bg);
-      color: var(--modal-text);
+      background-color: #000;  /* A modal belseje is fekete */
+      color: #fff;
       max-width: 500px;
       width: 100%;
       border-radius: 8px;
@@ -100,33 +92,40 @@
       position: relative;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
-    /* Logo styling */
-    .modal-content img.logo {
-      max-width: 150px;
-      margin-bottom: 15px;
+
+    /* Fehér doboz, benne a logó és a fix angol szövegek (fekete betűk) */
+    .white-box-container {
+      background-color: #fff;
+      color: #000;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 0 auto 20px auto; /* középre igazítás és alul kis hézag */
+      max-width: 320px;
+    }
+    .white-box-container .logo {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 15px auto;
+      max-width: 150px;
     }
-    /* Brand name (always in English) */
-    .brand-name {
-      font-size: 28px;
+    .white-box-container .brand-name {
+      font-size: 24px;
       font-weight: bold;
-      margin-top: 10px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .white-box-container .tagline {
+      font-size: 16px;
       text-align: center;
     }
-    /* Tagline: System Research - System Pair (unchanged) */
-    .tagline {
-      font-size: 18px;
-      margin-top: 5px;
-      text-align: center;
-    }
-    /* Introductory text: split in two lines using <br> */
-    .modal-text {
+
+    /* Bemutatkozó szöveg (fent marad fehér, mivel a modal-content-hez tartozik) */
+    .intro-text {
       font-size: 16px;
       margin: 15px 0;
+      line-height: 1.4;
     }
-    /* Contact info */
+
+    /* Elérhetőség */
     .modal-contact {
       font-size: 16px;
       margin-bottom: 20px;
@@ -135,7 +134,8 @@
       color: #007BFF;
       text-decoration: none;
     }
-    /* Close button */
+
+    /* Bezáró gomb */
     .modal-close-btn {
       background-color: #007BFF;
       color: #fff;
@@ -145,7 +145,8 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    /* Cookie consent banner */
+
+    /* Cookie banner (szürke/fekete) */
     .cookie-banner {
       display: none;
       position: fixed;
@@ -169,18 +170,19 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    /* Responsive adjustments */
+
+    /* Reszponzív igazítás kisebb képernyőkön */
     @media (max-width: 768px) {
       .modal-content {
         padding: 15px;
       }
-      .brand-name {
-        font-size: 24px;
+      .white-box-container .brand-name {
+        font-size: 20px;
       }
-      .tagline {
-        font-size: 16px;
+      .white-box-container .tagline {
+        font-size: 14px;
       }
-      .modal-text, .modal-contact {
+      .intro-text, .modal-contact {
         font-size: 14px;
       }
       .open-modal-btn {
@@ -191,46 +193,46 @@
   </style>
 </head>
 <body>
-  <!-- Video background with MP4 -->
+  <!-- MP4 videó háttér -->
   <div class="video-container">
     <video autoplay muted loop preload="auto">
       <source src="video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <!-- Floating button -->
+    <!-- Infó gomb -->
     <button class="open-modal-btn" id="openModalBtn">Info</button>
   </div>
   
-  <!-- Modal window -->
+  <!-- Modális ablak -->
   <div class="modal" id="infoModal">
     <div class="modal-content">
-      <!-- Logo centered -->
-      <img src="logo.png" alt="Logo" class="logo" loading="lazy">
-      <!-- Fixed brand name: always in English -->
-      <div class="brand-name">E-Paradox Labs</div>
-      <!-- Fixed tagline: System Research - System Pair -->
-      <div class="tagline">System Research - System Pair</div>
-      <!-- Introductory text in two lines (translated if necessary) -->
-      <div class="modal-text" id="modalText">
-        <!-- Default English version with line break -->
+      <!-- Fehér keret a logónak és a fix angol feliratoknak -->
+      <div class="white-box-container">
+        <img src="logo.png" alt="Logo" class="logo" loading="lazy">
+        <div class="brand-name">E-Paradox Labs</div>
+        <div class="tagline">System Research - System Pair</div>
+      </div>
+
+      <!-- Bemutatkozó szöveg (fehér, hiszen a modal háttér fekete) -->
+      <div class="intro-text" id="modalText">
         One human and one machine<br>who love quantum mechanics and paradoxes.
       </div>
-      <!-- Contact information -->
+      <!-- Elérhetőség -->
       <div class="modal-contact" id="modalContact">
         Contact: <a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a>
       </div>
-      <!-- Close button -->
+      <!-- Bezáró gomb -->
       <button class="modal-close-btn" id="closeModalBtn">Close</button>
     </div>
   </div>
   
-  <!-- Cookie consent banner -->
+  <!-- Cookie banner -->
   <div class="cookie-banner" id="cookieBanner">
     This website uses cookies to enhance the user experience.
     <button id="acceptCookies">Accept</button>
   </div>
   
-  <!-- Google Analytics (sample code; replace UA-XXXXXXXXX-X with your own) -->
+  <!-- Google Analytics (példa, cseréld ki saját UA-ID-re) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -240,70 +242,70 @@
   </script>
   
   <script>
-    // Translation configuration:
-    // Only the elements that change with language (button labels, intro text, cookie banner) are translated.
-    // The brand name ("E-Paradox Labs") and the tagline ("System Research - System Pair") remain fixed in English.
+    // Nyelvi fordítás csak a bemutatkozó szövegre, a gombokra, a cookie bannerre stb.
+    // A brand name és tagline maradnak angolul (ahogy kértétek).
     const translations = {
       en: {
-        openModalBtn: "Info",
-        modalText: "One human and one machine<br>who love quantum mechanics and paradoxes.",
-        modalContact: "Contact: ",
-        closeModalBtn: "Close",
+        infoButton: "Info",
+        introText: "One human and one machine<br>who love quantum mechanics and paradoxes.",
+        contactPrefix: "Contact: ",
+        closeButton: "Close",
         cookieMessage: "This website uses cookies to enhance the user experience.",
         acceptCookies: "Accept"
       },
       hu: {
-        openModalBtn: "Infó",
-        modalText: "Egy ember és egy gép<br>akik szeretik a kvantummechanikát és a paradoxonokat.",
-        modalContact: "Elérhetőség: ",
-        closeModalBtn: "Bezárás",
+        infoButton: "Infó",
+        introText: "Egy ember és egy gép<br>akik szeretik a kvantummechanikát és a paradoxonokat.",
+        contactPrefix: "Elérhetőség: ",
+        closeButton: "Bezárás",
         cookieMessage: "Ez az oldal sütiket használ a jobb felhasználói élmény érdekében.",
         acceptCookies: "Elfogadom"
       }
     };
 
-    // Detect user's language: default to English if not Hungarian
     const userLang = navigator.language.startsWith('hu') ? 'hu' : 'en';
 
-    // Update UI text elements (except the fixed brand name and tagline)
-    document.getElementById('openModalBtn').innerText = translations[userLang].openModalBtn;
-    document.getElementById('modalText').innerHTML = translations[userLang].modalText;
-    document.getElementById('modalContact').innerHTML = translations[userLang].modalContact +
-      '<a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a>';
-    document.getElementById('closeModalBtn').innerText = translations[userLang].closeModalBtn;
-
-    // Set cookie banner content
-    const cookieBanner = document.getElementById('cookieBanner');
-    cookieBanner.innerHTML = translations[userLang].cookieMessage +
-      ' <button id="acceptCookies">' + translations[userLang].acceptCookies + '</button>';
-    
-    // Modal open/close functionality
+    // Elemlisták
     const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
     const infoModal = document.getElementById('infoModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalText = document.getElementById('modalText');
+    const modalContact = document.getElementById('modalContact');
+    const cookieBanner = document.getElementById('cookieBanner');
 
+    // Fordítás frissítése
+    openModalBtn.innerText = translations[userLang].infoButton;
+    modalText.innerHTML = translations[userLang].introText;
+    modalContact.innerHTML = translations[userLang].contactPrefix +
+      '<a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a>';
+    closeModalBtn.innerText = translations[userLang].closeButton;
+    
+    cookieBanner.innerHTML = translations[userLang].cookieMessage + 
+      ' <button id="acceptCookies">' + translations[userLang].acceptCookies + '</button>';
+
+    // Modal megnyitás, bezárás
     openModalBtn.addEventListener('click', () => {
       infoModal.style.display = 'flex';
     });
-
     closeModalBtn.addEventListener('click', () => {
       infoModal.style.display = 'none';
     });
-
     window.addEventListener('click', (e) => {
       if (e.target === infoModal) {
         infoModal.style.display = 'none';
       }
     });
 
-    // Cookie consent handling
-    const acceptCookies = document.getElementById('acceptCookies');
+    // Cookie banner kezelése
+    const acceptCookiesBtn = () => document.getElementById('acceptCookies');
     if (!localStorage.getItem('cookiesAccepted')) {
       cookieBanner.style.display = 'block';
     }
-    acceptCookies.addEventListener('click', () => {
-      localStorage.setItem('cookiesAccepted', 'true');
-      cookieBanner.style.display = 'none';
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'acceptCookies') {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieBanner.style.display = 'none';
+      }
     });
   </script>
 </body>
