@@ -1,1 +1,310 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Security and responsiveness meta tags -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Paradox Labs</title>
+  <meta name="description" content="E-Paradox Labs - One human and one machine who love quantum mechanics and paradoxes.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Preload the video -->
+  <link rel="preload" href="video.mp4" as="video">
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "E-Paradox Labs",
+    "url": "https://eplabsai.aplabsai.com",
+    "logo": "https://eplabsai.aplabsai.com/logo.png",
+    "description": "One human and one machine who love quantum mechanics and paradoxes."
+  }
+  </script>
+  <style>
+    /* CSS Variables for modal colors */
+    :root {
+      --modal-bg: #fff;
+      --modal-text: #000;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --modal-bg: #222;
+        --modal-text: #fff;
+      }
+    }
+    
+    /* Reset and basic styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000; /* Global black background */
+      font-family: Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    /* Fullscreen video background */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Floating button (bottom-right) */
+    .open-modal-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Modal overlay */
+    .modal {
+      display: none; /* Initially hidden */
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7); /* Semi-transparent overlay */
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    /* Modal content container */
+    .modal-content {
+      background-color: var(--modal-bg);
+      color: var(--modal-text);
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    /* Logo styling */
+    .modal-content img.logo {
+      max-width: 150px;
+      margin-bottom: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Brand name (always in English) */
+    .brand-name {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+    /* Tagline: System Research - System Pair (unchanged) */
+    .tagline {
+      font-size: 18px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    /* Introductory text: split in two lines using <br> */
+    .modal-text {
+      font-size: 16px;
+      margin: 15px 0;
+    }
+    /* Contact info */
+    .modal-contact {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .modal-contact a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    /* Close button */
+    .modal-close-btn {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Cookie consent banner */
+    .cookie-banner {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      z-index: 10000;
+      font-size: 14px;
+    }
+    .cookie-banner button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      margin-left: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 15px;
+      }
+      .brand-name {
+        font-size: 24px;
+      }
+      .tagline {
+        font-size: 16px;
+      }
+      .modal-text, .modal-contact {
+        font-size: 14px;
+      }
+      .open-modal-btn {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Video background with MP4 -->
+  <div class="video-container">
+    <video autoplay muted loop preload="auto">
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <!-- Floating button -->
+    <button class="open-modal-btn" id="openModalBtn">Info</button>
+  </div>
+  
+  <!-- Modal window -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <!-- Logo centered -->
+      <img src="logo.png" alt="Logo" class="logo" loading="lazy">
+      <!-- Fixed brand name: always in English -->
+      <div class="brand-name">E-Paradox Labs</div>
+      <!-- Fixed tagline: System Research - System Pair -->
+      <div class="tagline">System Research - System Pair</div>
+      <!-- Introductory text in two lines (translated if necessary) -->
+      <div class="modal-text" id="modalText">
+        <!-- Default English version with line break -->
+        One human and one machine<br>who love quantum mechanics and paradoxes.
+      </div>
+      <!-- Contact information -->
+      <div class="modal-contact" id="modalContact">
+        Contact: <a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a>
+      </div>
+      <!-- Close button -->
+      <button class="modal-close-btn" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+  
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    This website uses cookies to enhance the user experience.
+    <button id="acceptCookies">Accept</button>
+  </div>
+  
+  <!-- Google Analytics (sample code; replace UA-XXXXXXXXX-X with your own) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXXXXX-X');
+  </script>
+  
+  <script>
+    // Translation configuration:
+    // Only the elements that change with language (button labels, intro text, cookie banner) are translated.
+    // The brand name ("E-Paradox Labs") and the tagline ("System Research - System Pair") remain fixed in English.
+    const translations = {
+      en: {
+        openModalBtn: "Info",
+        modalText: "One human and one machine<br>who love quantum mechanics and paradoxes.",
+        modalContact: "Contact: ",
+        closeModalBtn: "Close",
+        cookieMessage: "This website uses cookies to enhance the user experience.",
+        acceptCookies: "Accept"
+      },
+      hu: {
+        openModalBtn: "Infó",
+        modalText: "Egy ember és egy gép<br>akik szeretik a kvantummechanikát és a paradoxonokat.",
+        modalContact: "Elérhetőség: ",
+        closeModalBtn: "Bezárás",
+        cookieMessage: "Ez az oldal sütiket használ a jobb felhasználói élmény érdekében.",
+        acceptCookies: "Elfogadom"
+      }
+    };
+
+    // Detect user's language: default to English if not Hungarian
+    const userLang = navigator.language.startsWith('hu') ? 'hu' : 'en';
+
+    // Update UI text elements (except the fixed brand name and tagline)
+    document.getElementById('openModalBtn').innerText = translations[userLang].openModalBtn;
+    document.getElementById('modalText').innerHTML = translations[userLang].modalText;
+    document.getElementById('modalContact').innerHTML = translations[userLang].modalContact +
+      '<a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a>';
+    document.getElementById('closeModalBtn').innerText = translations[userLang].closeModalBtn;
+
+    // Set cookie banner content
+    const cookieBanner = document.getElementById('cookieBanner');
+    cookieBanner.innerHTML = translations[userLang].cookieMessage +
+      ' <button id="acceptCookies">' + translations[userLang].acceptCookies + '</button>';
+    
+    // Modal open/close functionality
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const infoModal = document.getElementById('infoModal');
+
+    openModalBtn.addEventListener('click', () => {
+      infoModal.style.display = 'flex';
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      infoModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === infoModal) {
+        infoModal.style.display = 'none';
+      }
+    });
+
+    // Cookie consent handling
+    const acceptCookies = document.getElementById('acceptCookies');
+    if (!localStorage.getItem('cookiesAccepted')) {
+      cookieBanner.style.display = 'block';
+    }
+    acceptCookies.addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'true');
+      cookieBanner.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
