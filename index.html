@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Paradox Labs – Főoldal</title>
+  <style>
+    /* Alap nullázás */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden; /* ne legyen görgetés */
+    }
+
+    /* Főoldal (Hero) videó */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Gomb a jobb alsó sarokban */
+    .open-modal-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .open-modal-btn:hover {
+      background-color: #555;
+    }
+
+    /* Modal háttér */
+    .modal {
+      display: none; /* alapból rejtve */
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    /* Modal tartalom doboz */
+    .modal-content {
+      background-color: #111;
+      margin: 5% auto;
+      padding: 2rem;
+      max-width: 600px;
+      border-radius: 6px;
+      position: relative;
+      text-align: center;
+    }
+    /* Bezáró 'X' ikon */
+    .close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Fehér téglalap a logónak és a főbb feliratoknak */
+    .white-box {
+      background-color: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+    .white-box img {
+      max-width: 150px;
+      display: block;
+      margin: 0 auto 0.5rem auto;
+    }
+    /* Márkanév - nagyobb betű */
+    .brand-name {
+      font-size: 1.5rem;
+      color: #000;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    /* System Research–System Pair - vastag, de kisebb betű */
+    .system-research {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Rövid bemutatkozó - még kisebb, de szintén vastag */
+    .short-intro {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ccc;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Elérhetőség (pl. link) */
+    .contact-link a {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* "Hamarosan nyitunk" felirat */
+    .coming-soon {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #ccc;
+      font-weight: bold;
+    }
+
+    /* Bezáró gomb a modal alján */
+    .close-modal-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+    }
+    .close-modal-btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Főoldal, csak a háttér-videó és a jobb alsó gomb -->
+  <section class="hero-section">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <!-- Cseréld le a te videód útvonalára/fájlnevére -->
+      <source src="main.mp4" type="video/mp4" />
+      A böngésződ nem támogatja a videó tag-et.
+    </video>
+    <button class="open-modal-btn" id="openModalBtn">Megnyit</button>
+  </section>
+
+  <!-- Modal ablak -->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+
+      <div class="white-box">
+        <!-- Logó (fekete alap + fehér vonalak, ezért fehér háttér) -->
+        <!-- Cseréld le a logo.png fájlnevét a saját logódra -->
+        <img src="logo.png" alt="E-Paradox Labs Logó">
+        <div class="brand-name">E-Paradox Labs</div>
+        <div class="system-research">System Research–System Pair</div>
+      </div>
+
+      <!-- Rövid bemutatkozó -->
+      <div class="short-intro">
+        Kutatás és gondolkodás a lineáris paradoxonokon túl, mélyebb rétegekben.
+      </div>
+
+      <!-- Elérhetőség (link) -->
+      <div class="contact-link">
+        <a href="https://eplabsai.eplabsai.com" target="_blank">eplabsai.eplabsai.com</a>
+      </div>
+
+      <!-- "Hamarosan nyitunk" felirat -->
+      <div class="coming-soon">Hamarosan nyitunk</div>
+
+      <!-- Bezáró gomb (vissza a videóra) -->
+      <button class="close-modal-btn">Bezár</button>
+    </div>
+  </div>
+
+  <script>
+    // Modal vezérlés
+    document.addEventListener("DOMContentLoaded", function() {
+      const openModalBtn = document.getElementById("openModalBtn");
+      const modal = document.getElementById("myModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const closeModalButton = document.querySelector(".close-modal-btn");
+
+      // Megnyitás (jobb alsó gomb)
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+      });
+
+      // Bezárás az "X" ikonnal
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Bezárás a modal gombbal
+      closeModalButton.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Bezárás, ha a modal háttérre kattintanak
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
