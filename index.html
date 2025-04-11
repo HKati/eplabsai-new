@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Paradox Labs – Főoldal</title>
+  <style>
+    /* Alap nullázás */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000; 
+      color: #fff;
+      /* overflow: hidden;  <--- kivettük, hogy mobilon is látható legyen a gomb */
+    }
+
+    /* Főoldal: háttér-videó + "Megnyit" gomb fixen jobb alsó sarokban */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .open-modal-btn {
+      position: fixed;  /* fix, hogy mindenhol a jobb alsó sarokban maradjon */
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      z-index: 9999;  /* magas z-index, biztosan látszódjon */
+    }
+    .open-modal-btn:hover {
+      background-color: #555;
+    }
+
+    /* MODAL ablak */
+    .modal {
+      display: none; /* Alapból rejtve */
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* átlátszó fekete overlay */
+    }
+    .modal-content {
+      background-color: #000; 
+      margin: 5% auto;
+      padding: 2rem;
+      max-width: 600px;
+      border-radius: 6px;
+      position: relative;
+      text-align: center;
+    }
+
+    /* Bezáró "X" ikon a sarokban */
+    .close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Logó: fehér vonalak, transzparens háttér */
+    .logo {
+      max-width: 150px;
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+
+    /* Márkanév, "System Research–System Pair" és további szöveg */
+    .brand-name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .system-research {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+    .intro-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ddd;
+      margin-bottom: 1rem;
+    }
+
+    /* E-mail cím (mailto linkkel) */
+    .contact-link {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+
+    /* "Hamarosan nyitunk" vékonyabb betűvel */
+    .coming-soon {
+      font-size: 1rem;
+      font-weight: 300; /* vékonyabb, mint a többi */
+      color: #bbb;
+      margin-bottom: 1rem;
+    }
+
+    /* Bezáró gomb (a modal alján) */
+    .close-modal-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 4px;
+    }
+    .close-modal-btn:hover {
+      background-color: #555;
+    }
+
+    /* Egyszerű reszponzív szabály */
+    @media (min-width: 768px) {
+      .brand-name {
+        font-size: 2rem;
+      }
+      .system-research {
+        font-size: 1.3rem;
+      }
+      .intro-text {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Főoldal: háttér-videó és "Megnyit" gomb -->
+  <section class="hero-section">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <!-- Cseréld le a saját videód útvonalára/fájlnevére -->
+      <source src="main.mp4" type="video/mp4">
+      A böngésződ nem támogatja a videó tag-et.
+    </video>
+    <button class="open-modal-btn" id="openModalBtn">Megnyit</button>
+  </section>
+
+  <!-- MODAL ablak -->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <!-- Bezáró X ikon -->
+      <span class="close" id="closeModalBtn">&times;</span>
+
+      <!-- Logó (fehér vonalak + transzparens háttér) -->
+      <img src="logo.png" alt="E-Paradox Labs logó" class="logo">
+
+      <!-- Márkanév -->
+      <div class="brand-name">E-Paradox Labs</div>
+      <!-- System Research–System Pair -->
+      <div class="system-research">System Research–System Pair</div>
+
+      <!-- Rövid bemutatkozó szöveg -->
+      <p class="intro-text">
+        Egy ember és egy gép, akik kutatják a kvantummechanikát és a paradoxonokat.
+      </p>
+
+      <!-- E-mail cím (mailto linkkel) -->
+      <a href="mailto:eplabsai@eplabsai.com" class="contact-link">
+        eplabsai@eplabsai.com
+      </a>
+
+      <!-- „Hamarosan nyitunk” felirat, vékonyabb betűvel -->
+      <div class="coming-soon">Hamarosan nyitunk</div>
+
+      <!-- Bezáró gomb (vissza a videóra) -->
+      <button class="close-modal-btn">Bezár</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const openModalBtn = document.getElementById("openModalBtn");
+      const modal = document.getElementById("myModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const closeModalButton = document.querySelector(".close-modal-btn");
+
+      // Modal megnyitása
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+      });
+
+      // Bezárás (X ikon)
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Bezárás (Bezár gomb)
+      closeModalButton.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Ha a háttérre kattintanak, zárja be a modalt
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
 
