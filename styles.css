@@ -1,0 +1,14 @@
+/* Márkanév */
+.brand-name {
+    text-transform: uppercase; /* minden betű nagybetű lesz */
+}
+
+/* E-mail cím */
+.email-link {
+    color: #5B7C99; /* szürkés-kék */
+    text-decoration: none; /* aláhúzás nélkül */
+}
+
+.email-link:hover {
+    text-decoration: underline; /* ha fölé viszik az egeret, aláhúzza */
+}
