@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kvantumprojekt – Main Page</title>
+  <style>
+    /* RESET / BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background-color: #000; /* black background */
+    }
+
+    /* HERO SECTION (VIDEO + OVERLAY) */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh; 
+      overflow: hidden;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      z-index: -1; 
+    }
+    .hero-overlay {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+    }
+    .hero-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      line-height: 1.4;
+    }
+    .hero-button {
+      background-color: #222;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .hero-button:hover {
+      background-color: #444;
+    }
+
+    /* MODAL STYLES */
+    .modal {
+      display: none; /* hidden by default */
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .modal-content {
+      background-color: #111;
+      margin: 10% auto;
+      padding: 2rem;
+      max-width: 600px;
+      border-radius: 6px;
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal h2 {
+      margin-bottom: 1rem;
+    }
+    .modal p {
+      margin-bottom: 1rem;
+    }
+    .dismiss-modal {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    .dismiss-modal:hover {
+      background-color: #555;
+    }
+
+    /* RESPONSIVE TEXT SIZES */
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      .hero-subtitle {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION WITH VIDEO -->
+  <section class="hero-section">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <!-- Replace with your own video path or URL -->
+      <source src="media/video.mp4" type="video/mp4" />
+      <!-- Fallback message or image -->
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay">
+      <h1 class="hero-title">Kvantumprojekt – Exploring Quantum Mechanics</h1>
+      <p class="hero-subtitle">
+        Welcome to our quantum journey! We are dedicated to scientific exploration, focusing on paradoxes 
+        and the mysterious world of quantum mechanics. Together with System Research–System Pair, we will 
+        soon launch a platform where humans and AI collaborate for deeper insights.
+      </p>
+      <button class="hero-button" id="openModalBtn">Learn More</button>
+    </div>
+  </section>
+
+  <!-- MODAL WINDOW -->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+      <h2>Coming Soon!</h2>
+      <p>
+        Kvantumprojekt is aiming to push the boundaries of knowledge using System Research–System Pair.  
+        Stay tuned for thought-provoking content, collaborative insights, and cutting-edge research.
+      </p>
+      <button class="dismiss-modal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Simple JS for the Modal
+    document.addEventListener("DOMContentLoaded", function() {
+      const openModalBtn = document.getElementById("openModalBtn");
+      const modal = document.getElementById("myModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const dismissModal = document.querySelector(".dismiss-modal");
+
+      // Open Modal
+      if (openModalBtn) {
+        openModalBtn.addEventListener("click", () => {
+          modal.style.display = "block";
+        });
+      }
+
+      // Close Modal with the 'X'
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+      }
+
+      // Close Modal with the 'Close' button
+      if (dismissModal) {
+        dismissModal.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+      }
+
+      // Close Modal if clicking outside modal content
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
 
