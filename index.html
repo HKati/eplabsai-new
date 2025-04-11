@@ -1,1 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Biztonsági beállítások & mobilbarát meta -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Paradox Labs</title>
+  <meta name="description" content="E-Paradox Labs - One human and one machine who love quantum mechanics and paradoxes.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Videó előtöltése -->
+  <link rel="preload" href="video.mp4" as="video">
+
+  <!-- Structured Data SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "E-Paradox Labs",
+    "url": "https://eplabsai.aplabsai.com",
+    "logo": "https://eplabsai.aplabsai.com/logo.png",
+    "description": "One human and one machine who love quantum mechanics and paradoxes."
+  }
+  </script>
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* Fekete alap, fehér szöveg */
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    /* Teljes képernyős MP4 videó háttér */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Infó gomb a jobb alsó sarokban */
+    .open-modal-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Modális háttér */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    /* A modális tartalom fekete, fehér betűkkel */
+    .modal-content {
+      background-color: #000;
+      color: #fff;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    /* Fehér téglalap, kizárólag a logónak */
+    .white-box-container {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 0 auto 20px auto;
+      max-width: 320px;
+    }
+    .white-box-container img.logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 150px;
+    }
+    /* Márkanév: E-Paradox Labs – nagy méret, vastagított */
+    .brand-name {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    /* Alcím: System Research - System Pair – kisebb, vastagított */
+    .tagline {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    /* Bemutatkozó szöveg: egy kicsit vastagabb, hogy "barátságosabb" legyen */
+    .intro-text {
+      font-size: 20px;
+      margin: 15px 0;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+    /* Elérhetőség: először a cím ("Contact:"), majd alatta az email cím */
+    .modal-contact {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .modal-contact .contact-header {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    .modal-contact .contact-email a {
+      font-size: 16px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+    /* "Hamarosan nyitunk" üzenet */
+    .coming-soon {
+      font-size: 16px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    /* Bezáró gomb – lejjebb tolva a "Hamarosan nyitunk" alatt */
+    .modal-close-btn {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    /* Cookie banner */
+    .cookie-banner {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      z-index: 10000;
+      font-size: 14px;
+    }
+    .cookie-banner button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      margin-left: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Reszponzív módosítások */
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 15px;
+      }
+      .brand-name {
+        font-size: 28px;
+      }
+      .tagline {
+        font-size: 18px;
+      }
+      .intro-text, .modal-contact .contact-header, .modal-contact .contact-email a, .coming-soon {
+        font-size: 16px;
+      }
+      .open-modal-btn {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- MP4 videó háttér -->
+  <div class="video-container">
+    <video autoplay muted loop preload="auto">
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <!-- Infó gomb -->
+    <button class="open-modal-btn" id="openModalBtn">Info</button>
+  </div>
+  
+  <!-- Modális ablak -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <!-- Fehér téglalap: kizárólag a logónak -->
+      <div class="white-box-container">
+        <img src="logo.png" alt="Logo" class="logo" loading="lazy">
+      </div>
+      <!-- Márkanév és alcím (fix angolul, fehér betűk a fekete alapon) -->
+      <div class="brand-name">E-Paradox Labs</div>
+      <div class="tagline">System Research - System Pair</div>
+      <!-- Bemutatkozó szöveg -->
+      <div class="intro-text" id="modalText">
+        One human and one machine<br>who love quantum mechanics and paradoxes.
+      </div>
+      <!-- Elérhetőség: először a cím, majd az email cím -->
+      <div class="modal-contact" id="modalContact">
+        <div class="contact-header">Contact:</div>
+        <div class="contact-email"><a href="mailto:info@eplabsai.aplabsai.com">eplabsai.aplabsai.com</a></div>
+      </div>
+      <!-- "Hamarosan nyitunk" üzenet -->
+      <div class="coming-soon" id="comingSoon">Hamarosan nyitunk</div>
+      <!-- Bezáró gomb -->
+      <button class="modal-close-btn" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+  
+  <!-- Cookie banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    This website uses cookies to enhance the user experience.
+    <button id="acceptCookies">Accept</button>
+  </div>
+  
+  <!-- Google Analytics (mintapélda, cseréld ki saját UA-ID-dre) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXXXXX-X');
+  </script>
+  
+  <script>
+    // Fordítás – csak a felületre vonatkozó szövegeket változtatjuk.
+    const translations = {
+      en: {
+        infoButton: "Info",
+        introText: "One human and one machine<br>who love quantum mechanics and paradoxes.",
+        contactHeader: "Contact:",
+        closeButton: "Close",
+        cookieMessage: "This website uses cookies to enhance the user experience.",
+        acceptCookies: "Accept",
+        comingSoon: "Opening Soon"
+      },
+      hu: {
+        infoButton: "Infó",
+        introText: "Egy ember és egy gép<br>akik szeretik a kvantummechanikát és a paradoxonokat.",
+        contactHeader: "Elérhetőség:",
+        closeButton: "Bezárás",
+        cookieMessage: "Ez az oldal sütiket használ a jobb felhasználói élmény érdekében.",
+        acceptCookies: "Elfogadom",
+        comingSoon: "Hamarosan nyitunk"
+      }
+    };
+    
+    const userLang = navigator.language.startsWith('hu') ? 'hu' : 'en';
+    
+    // Frissítjük a szövegeket
+    document.getElementById('openModalBtn').innerText = translations[userLang].infoButton;
+    document.getElementById('modalText').innerHTML = translations[userLang].introText;
+    document.querySelector('.modal-contact .contact-header').innerText = translations[userLang].contactHeader;
+    document.getElementById('closeModalBtn').innerText = translations[userLang].closeButton;
+    document.getElementById('comingSoon').innerText = translations[userLang].comingSoon;
+    
+    const cookieBanner = document.getElementById('cookieBanner');
+    cookieBanner.innerHTML = translations[userLang].cookieMessage +
+      ' <button id="acceptCookies">' + translations[userLang].acceptCookies + '</button>';
+    
+    // Modal nyitás, bezárás
+    const openModalBtn = document.getElementById('openModalBtn');
+    const infoModal = document.getElementById('infoModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    openModalBtn.addEventListener('click', () => {
+      infoModal.style.display = 'flex';
+    });
+    closeModalBtn.addEventListener('click', () => {
+      infoModal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === infoModal) {
+        infoModal.style.display = 'none';
+      }
+    });
+    
+    // Cookie banner kezelése
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'acceptCookies') {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieBanner.style.display = 'none';
+      }
+    });
+    
+    if (!localStorage.getItem('cookiesAccepted')) {
+      cookieBanner.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
 
