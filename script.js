@@ -1,14 +1,24 @@
-// Popup megnyitása
-document.getElementById('open-btn').addEventListener('click', function() {
-  const overlay = document.getElementById('overlay');
-  overlay.classList.remove('hidden');
-  overlay.classList.add('show');
-});
+document.addEventListener("DOMContentLoaded", function () {
+  const openModalBtn = document.getElementById("openModalBtn");
+  const modal = document.getElementById("myModal");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const closeModalButton = document.querySelector(".close-modal-btn");
 
-// Popup bezárása
-document.getElementById('close-btn').addEventListener('click', function() {
-  const overlay = document.getElementById('overlay');
-  overlay.classList.remove('show');
-  overlay.classList.add('hidden');
-});
+  openModalBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
 
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  closeModalButton.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
