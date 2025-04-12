@@ -1,1 +1,73 @@
+/* Alap nullázás */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Alap betűk, háttér, stb. */
+body {
+  font-family: Arial, sans-serif;
+  background: #000;   /* háttér szín */
+  color: #fff;        /* betűszín */
+}
+
+/* A popup overlay kitölti a teljes képernyőt */
+#overlay {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Alapból rejtett állapot: .hidden => display: none */
+.hidden {
+  display: none;
+}
+
+/* .show => láthatóvá teszi */
+.show {
+  display: block;
+}
+
+/* A popup doboz a képernyő közepén */
+.popup-content {
+  position: relative;
+  max-width: 600px;
+  margin: 10% auto;    /* középre */
+  background: #fff;    /* fehér háttér */
+  color: #000;         /* fekete betű */
+  padding: 2rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Cím, benne a special-E */
+.popup-content h1 {
+  font-weight: bold;    /* a többi betű vastag */
+}
+
+/* A különleges "E" – nagyobb, vékonyabb */
+.popup-content h1 .special-E {
+  font-size: 1.3em;     /* kicsit nagyobb, mint a többi */
+  font-weight: 300;     /* vékonyabb */
+}
+
+/* Gombok kinézete */
+button {
+  cursor: pointer;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #555;
+}
 
