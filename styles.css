@@ -5,69 +5,137 @@
   box-sizing: border-box;
 }
 
-/* Alap betűk, háttér, stb. */
 body {
   font-family: Arial, sans-serif;
-  background: #000;   /* háttér szín */
-  color: #fff;        /* betűszín */
+  background-color: #000;
+  color: #fff;
 }
 
-/* A popup overlay kitölti a teljes képernyőt */
-#overlay {
-  position: fixed;
-  top: 0; 
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  object-fit: cover;
+  z-index: -1;
 }
 
-/* Alapból rejtett állapot: .hidden => display: none */
-.hidden {
-  display: none;
-}
-
-/* .show => láthatóvá teszi */
-.show {
-  display: block;
-}
-
-/* A popup doboz a képernyő közepén */
-.popup-content {
-  position: relative;
-  max-width: 600px;
-  margin: 10% auto;    /* középre */
-  background: #fff;    /* fehér háttér */
-  color: #000;         /* fekete betű */
-  padding: 2rem;
-  border-radius: 6px;
-  text-align: center;
-}
-
-/* Cím, benne a special-E */
-.popup-content h1 {
-  font-weight: bold;    /* a többi betű vastag */
-}
-
-/* A különleges "E" – nagyobb, vékonyabb */
-.popup-content h1 .special-E {
-  font-size: 1.3em;     /* kicsit nagyobb, mint a többi */
-  font-weight: 300;     /* vékonyabb */
-}
-
-/* Gombok kinézete */
-button {
-  cursor: pointer;
-  border: none;
+.open-modal-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background-color: #333;
   color: #fff;
-  padding: 0.6rem 1rem;
+  border: none;
+  padding: 10px 15px;
   border-radius: 4px;
-  margin-top: 1rem;
+  cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s;
+  z-index: 9999;
 }
 
-button:hover {
+.open-modal-btn:hover {
   background-color: #555;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: #000;
+  margin: 5% auto;
+  padding: 2rem;
+  max-width: 600px;
+  border-radius: 6px;
+  text-align: center;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.logo {
+  max-width: 150px;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+.brand-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.special-E {
+  font-weight: 300;
+  font-size: 1.4em;
+}
+
+.system-research {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.intro-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.contact-link {
+  color: #587c99;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+.coming-soon {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
+.close-modal-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.close-modal-btn:hover {
+  background-color: #555;
+}
