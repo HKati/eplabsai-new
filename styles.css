@@ -1,1 +1,17 @@
+button {
+  cursor: pointer;
+  background-color: transparent; /* átlátszó háttér */
+  color: #fff;                   /* fehér betű */
+  border: 1px solid #fff;       /* vékony fehér keret */
+  padding: 0.4rem 0.8rem;       /* kisebb padding, keskenyebb gomb */
+  border-radius: 4px;
+  font-size: 0.9rem;            /* kicsit kisebb betű, ha jól mutat a dizájnban */
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 0.5rem;           /* ízlés szerint, ha szükséges */
+}
+
+button:hover {
+  background-color: #fff;       /* világos háttér */
+  color: #000;                  /* sötét betű */
+}
 
