@@ -1,17 +1,1 @@
-#open-btn, .close-btn {
-    padding: 6px 18px;
-    font-size: 14px;
-    font-weight: 300;
-    border: 1px solid rgba(255,255,255,0.5);
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#open-btn:hover, .close-btn:hover {
-    background-color: rgba(255,255,255,0.2);
-    border-color: rgba(255,255,255,0.8);
-}
 
