@@ -1,1 +1,262 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Paradox Labs – Főoldal</title>
+  <style>
+    /* Alap nullázás */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000; 
+      color: #fff;
+    }
+
+    /* Főoldal: háttér-videó */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* 1) NYITÓ GOMB (Megnyit) - vékonyabb, minimalista stílus */
+    .open-modal-btn {
+      position: fixed;  
+      bottom: 20px;
+      right: 20px;
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff; 
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s, color 0.3s;
+      z-index: 9999; 
+    }
+    .open-modal-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    /* 2) MODAL ablak */
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .modal-content {
+      background-color: #000; 
+      margin: 5% auto;
+      padding: 2rem;
+      max-width: 600px;
+      border-radius: 6px;
+      position: relative;
+      text-align: center;
+    }
+
+    /* Bezáró "X" ikon a sarokban */
+    .close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* 3) MÁRKANÉV + LOGÓ */
+    .logo {
+      max-width: 150px;
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+    .brand-name {
+      font-size: 1.8rem;
+      font-weight: 400; /* nem túl vastag */
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .system-research {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+    .intro-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ddd;
+      margin-bottom: 1rem;
+    }
+    .contact-link {
+      color: #587c99;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+    .coming-soon {
+      font-size: 1rem;
+      font-weight: 300; 
+      color: #bbb;
+      margin-bottom: 1rem;
+    }
+
+    /* 4) BEZÁRÓ GOMB */
+    .close-modal-btn {
+      background-color: transparent; 
+      color: #fff;
+      border: 1px solid #fff;       
+      padding: 0.4rem 0.8rem;       
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .close-modal-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    /* Egyszerű reszponzív szabály */
+    @media (min-width: 768px) {
+      .brand-name {
+        font-size: 2rem;
+      }
+      .system-research {
+        font-size: 1.3rem;
+      }
+      .intro-text {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* ===== ÚJ RÉSZ: Desktop (992px fölött) takarja el teljesen a hátteret ===== */
+    @media (min-width: 992px) {
+      /* A modal legyen teljesen fekete, ne áttetsző: */
+      .modal {
+        background-color: #000;
+      }
+
+      /* A modal-content töltsön ki mindent, így a videó/főkép nem látszik */
+      .modal-content {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 2rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Főoldal: háttér-videó és "Megnyit" gomb -->
+  <section class="hero-section">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="main.mp4" type="video/mp4">
+      A böngésződ nem támogatja a videó tag-et.
+    </video>
+    <button class="open-modal-btn" id="openModalBtn">Megnyit</button>
+  </section>
+
+  <!-- MODAL ablak -->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <!-- Bezáró X ikon -->
+      <span class="close" id="closeModalBtn">&times;</span>
+
+      <!-- Logó (fehér vonalak + transzparens háttér) -->
+      <img src="logo.png" alt="E-Paradox Labs logó" class="logo">
+
+      <!-- Márkanév: csupa nagybetű, nem túl vastag, benne E•PARADOX LABS -->
+      <div class="brand-name">
+        E•PARADOX LABS
+      </div>
+
+      <!-- System Research–System Pair -->
+      <div class="system-research">System Research–System Pair</div>
+
+      <!-- Rövid bemutatkozó szöveg -->
+      <p class="intro-text">
+        Egy ember és egy gép, akik kutatják a kvantummechanikát és a paradoxonokat.
+      </p>
+
+      <!-- E-mail cím (mailto link) - #587c99 színnel -->
+      <a href="mailto:eplabsai@eplabsai.com" class="contact-link">
+        eplabsai@eplabsai.com
+      </a>
+
+      <!-- „Hamarosan nyitunk” felirat, vékonyabb betűvel -->
+      <div class="coming-soon">Hamarosan nyitunk</div>
+
+      <!-- Bezáró gomb (vissza a videóra) -->
+      <button class="close-modal-btn">Bezár</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const openModalBtn = document.getElementById("openModalBtn");
+      const modal = document.getElementById("myModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const closeModalButton = document.querySelector(".close-modal-btn");
+
+      // Modal megnyitása
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+      });
+
+      // Bezárás (X ikon)
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Bezárás (Bezár gomb)
+      closeModalButton.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Ha a háttérre kattintanak, zárja be a modalt
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
 
