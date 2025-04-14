@@ -156,7 +156,7 @@
       color: #000;
     }
 
-    /* Egyszerű reszponzív szabály */
+    /* Egyszerű reszponzív szabály (tablet) */
     @media (min-width: 768px) {
       .brand-name {
         font-size: 2rem;
@@ -169,7 +169,27 @@
       }
     }
 
-    /* Desktop (992px fölött) takarja el teljesen a hátteret */
+    /* ===== MOBILE + TABLET (max-width: 991px) => teljes takarás ===== */
+    @media (max-width: 991px) {
+      .modal {
+        background-color: #000; /* teljes fekete, ne legyen áttetsző */
+      }
+      .modal-content {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 2rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+    }
+
+    /* ===== DESKTOP (min-width: 992px) => szintén teljes takarás ===== */
     @media (min-width: 992px) {
       .modal {
         background-color: #000;
@@ -270,4 +290,3 @@
 
 </body>
 </html>
-
