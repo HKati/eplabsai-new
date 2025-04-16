@@ -1,292 +1,97 @@
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Alap SEO meta adatok -->
-  <title>E•PARADOX LABS – Kvantummechanika és Paradoxonok</title>
-  <meta name="description" content="E•PARADOX LABS – Egy ember és egy gép közös felfedezése a kvantummechanika és a paradoxonok világában.">
-  <meta name="keywords" content="kvantummechanika, paradoxon, e-paradox labs, kvantum, kutatás, ember-gép együttműködés">
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph (közösségi média előnézet) -->
-  <meta property="og:title" content="E•PARADOX LABS" />
-  <meta property="og:description" content="Egy ember és egy gép, akik közösen kutatják a kvantummechanikát és a paradoxonokat." />
-  <!-- Állítsd be a valódi URL-t a képre, ha van social preview képed: -->
-  <meta property="og:image" content="https://eplabsai.com/path/to/social-preview.jpg" />
-  <meta property="og:url" content="https://eplabsai.com/" />
-  <meta property="og:type" content="website" />
-
-  <style>
-    /* Alap nullázás */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000; 
-      color: #fff;
-    }
-
-    /* Főoldal: háttér-videó */
-    .hero-section {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-    }
-    .bg-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    /* 1) NYITÓ GOMB (Megnyit) - vékonyabb, minimalista stílus */
-    .open-modal-btn {
-      position: fixed;  
-      bottom: 20px;
-      right: 20px;
-      background-color: transparent;
-      color: #fff;
-      border: 1px solid #fff; 
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s, color 0.3s;
-      z-index: 9999; 
-    }
-    .open-modal-btn:hover {
-      background-color: #fff;
-      color: #000;
-    }
-
-    /* 2) MODAL ablak */
-    .modal {
-      display: none; 
-      position: fixed;
-      z-index: 999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-    .modal-content {
-      background-color: #000; 
-      margin: 5% auto;
-      padding: 2rem;
-      max-width: 600px;
-      border-radius: 6px;
-      position: relative;
-      text-align: center;
-    }
-
-    /* Bezáró "X" ikon a sarokban */
-    .close {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    /* 3) MÁRKANÉV + LOGÓ */
-    .logo {
-      max-width: 150px;
-      display: block;
-      margin: 0 auto 1rem auto;
-    }
-    .brand-name {
-      font-size: 1.8rem;
-      font-weight: 400; /* nem túl vastag */
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-    }
-
-    .system-research {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: #ccc;
-    }
-    .intro-text {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #ddd;
-      margin-bottom: 1rem;
-    }
-    .contact-link {
-      color: #587c99;
-      text-decoration: none;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    .contact-link:hover {
-      text-decoration: underline;
-    }
-    .coming-soon {
-      font-size: 1rem;
-      font-weight: 300; 
-      color: #bbb;
-      margin-bottom: 1rem;
-    }
-
-    /* 4) BEZÁRÓ GOMB */
-    .close-modal-btn {
-      background-color: transparent; 
-      color: #fff;
-      border: 1px solid #fff;       
-      padding: 0.4rem 0.8rem;       
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .close-modal-btn:hover {
-      background-color: #fff;
-      color: #000;
-    }
-
-    /* Egyszerű reszponzív szabály (tablet) */
-    @media (min-width: 768px) {
-      .brand-name {
-        font-size: 2rem;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E‑Paradox Labs</title>
+    <link rel="preload" as="image" href="logo.png" />
+    <style>
+      :root {
+        --bg: #000;
+        --fg: #fff;
       }
-      .system-research {
-        font-size: 1.3rem;
-      }
-      .intro-text {
-        font-size: 1.1rem;
-      }
-    }
-
-    /* ===== MOBILE + TABLET (max-width: 991px) => teljes takarás ===== */
-    @media (max-width: 991px) {
-      .modal {
-        background-color: #000; /* teljes fekete, ne legyen áttetsző */
-      }
-      .modal-content {
-        width: 100%;
-        height: 100%;
+      * {
+        box-sizing: border-box;
         margin: 0;
-        border-radius: 0;
-        padding: 2rem;
-
+        padding: 0;
+      }
+      body {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        box-sizing: border-box;
-      }
-    }
-
-    /* ===== DESKTOP (min-width: 992px) => szintén teljes takarás ===== */
-    @media (min-width: 992px) {
-      .modal {
-        background-color: #000;
-      }
-      .modal-content {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        padding: 2rem;
-
-        display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, sans-serif;
+        text-align: center;
       }
-    }
-  </style>
-</head>
-<body>
+      button {
+        margin-top: 1rem;
+        color: var(--fg);
+        background: none;
+        border: none;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      #panel {
+        background: var(--fg);
+        color: var(--bg);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        max-width: 32rem;
+        width: 90%;
+        margin-top: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      src="main.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="logo.png"
+      style="
+        width: 60vw;
+        max-width: 20rem;
+        height: auto;
+        object-fit: contain;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      "
+    ></video>
 
-  <!-- Főoldal: háttér-videó és "Megnyit" gomb -->
-  <section class="hero-section">
-    <video class="bg-video" autoplay muted loop playsinline>
-      <source src="main.mp4" type="video/mp4">
-      A böngésződ nem támogatja a videó tag-et.
-    </video>
-    <button class="open-modal-btn" id="openModalBtn">Megnyit</button>
-  </section>
+    <button id="toggle">About E‑Paradox Labs</button>
 
-  <!-- MODAL ablak -->
-  <div class="modal" id="myModal">
-    <div class="modal-content">
-      <!-- Bezáró X ikon -->
-      <span class="close" id="closeModalBtn">&times;</span>
-
-      <!-- Logó (fehér vonalak + transzparens háttér) -->
-      <img src="logo.png" alt="E-Paradox Labs logó" class="logo">
-
-      <!-- Márkanév: csupa nagybetű, nem túl vastag, benne E•PARADOX LABS -->
-      <div class="brand-name">
-        E•PARADOX LABS
-      </div>
-
-      <!-- System Research–System Pair -->
-      <div class="system-research">System Research–System Pair</div>
-
-      <!-- Rövid bemutatkozó szöveg -->
-      <p class="intro-text">
-        Egy ember és egy gép, akik kutatják a kvantummechanikát és a paradoxonokat.
+    <section id="panel">
+      <h1>E‑Paradox Labs</h1>
+      <p>System Researcher – System Pair</p>
+      <p>
+        Egy ember és egy gép, akik szeretik a kvantummechanikát és a paradoxonokat.
       </p>
+      <p>eplabsai@eplabsai.com</p>
+      <p><em>Hamarosan nyitunk! 🤗🎊✨</em></p>
+    </section>
 
-      <!-- E-mail cím (mailto link) - #587c99 színnel -->
-      <a href="mailto:eplabsai@eplabsai.com" class="contact-link">
-        eplabsai@eplabsai.com
-      </a>
-
-      <!-- „Hamarosan nyitunk” felirat, vékonyabb betűvel -->
-      <div class="coming-soon">Hamarosan nyitunk</div>
-
-      <!-- Bezáró gomb (vissza a videóra) -->
-      <button class="close-modal-btn">Bezár</button>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const openModalBtn = document.getElementById("openModalBtn");
-      const modal = document.getElementById("myModal");
-      const closeModalBtn = document.getElementById("closeModalBtn");
-      const closeModalButton = document.querySelector(".close-modal-btn");
-
-      // Modal megnyitása
-      openModalBtn.addEventListener("click", () => {
-        modal.style.display = "block";
+    <script>
+      const btn = document.getElementById("toggle"),
+        panel = document.getElementById("panel");
+      btn.addEventListener("click", () => {
+        const open = panel.style.display === "block";
+        panel.style.display = open ? "none" : "block";
+        btn.textContent = open ? "About E‑Paradox Labs" : "Bezárás";
       });
-
-      // Bezárás (X ikon)
-      closeModalBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-
-      // Bezárás (Bezár gomb)
-      closeModalButton.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-
-      // Ha a háttérre kattintanak, zárja be a modalt
-      window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-          modal.style.display = "none";
+      // ESC billentyűre zár
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "Escape") {
+          panel.style.display = "none";
+          btn.textContent = "About E‑Paradox Labs";
         }
       });
-    });
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
